@@ -14,7 +14,7 @@ const WelcomeScreen = ({ navigation }) => {
       
       <TouchableOpacity 
         style={styles.button}
-        onPress={() => router.push('sign-up')} // Replace with your actual navigation target
+        onPress={() => router.push('/sign-up')} // Replace with your actual navigation target
       >
         <Text style={styles.buttonText}>Get Started</Text>
       </TouchableOpacity>
