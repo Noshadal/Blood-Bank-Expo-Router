@@ -4,8 +4,9 @@ import { View, Text, TextInput, TouchableOpacity, ImageBackground, StyleSheet } 
 export default function SignIn() {
     return (
         <ImageBackground
-            source={{ uri: 'https://images.unsplash.com/photo-1580281658628-bff44a11f0d2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDE0fHxibG9vZCUyMGRvbmF0aW9ufGVufDB8fHx8MTY3NzY1Mjc1Mw&ixlib=rb-1.2.1&q=80&w=1080' }}
+            source={{ uri: 'https://media1.giphy.com/media/B0WxCspNlzKIChtzGT/source.gif' }} // Replace with your signup background image URL
             style={styles.background}
+            resizeMode="contain"
         >
             <View style={styles.container}>
                 <Text style={styles.heading}>Welcome Back!</Text>
@@ -32,7 +33,7 @@ export default function SignIn() {
                 <Text style={styles.footerText}>
                     New here?
                     <Text style={styles.linkText} onPress={() => {/* Navigate to sign up */}}>
-                        {" "}Create an account
+                        Create an account
                     </Text>
                 </Text>
             </View>
@@ -48,20 +49,19 @@ const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 30,
         alignItems: 'center',
-        backgroundColor: 'rgba(255, 255, 255, 0.9)',
         paddingVertical: 20,
         borderRadius: 15,
         marginHorizontal: 20,
     },
     heading: {
         fontSize: 32,
-        color: '#8B0000',
+        color: '#B22222',
         fontWeight: 'bold',
         marginBottom: 10,
     },
     subheading: {
         fontSize: 16,
-        color: '#8B0000',
+        color: '#B22222',
         marginBottom: 20,
     },
     input: {
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 8,
         marginBottom: 15,
-        color: '#8B0000',
+        color: '#B22222',
     },
     button: {
         backgroundColor: '#B22222',
@@ -89,10 +89,10 @@ const styles = StyleSheet.create({
     },
     footerText: {
         fontSize: 14,
-        color: '#8B0000',
+        color: '#B22222',
     },
     linkText: {
-        color: '#B22222',
+        color: '#8B0000',
         fontWeight: 'bold',
     },
 });

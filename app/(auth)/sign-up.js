@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { router } from 'expo-router';
 import { View, Text, TextInput, TouchableOpacity, ImageBackground, StyleSheet, Image } from 'react-native';
 
-export default function Signup (){
+export default function Signup ({navigation}){
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
         width: '100%',
         padding: 20,
         gap:10,
-        backgroundColor: 'rgba(255, 255, 255, 0.85)',
+        backgroundColor: 'rgba(255, 255, 255, 0.9)',
         borderRadius: 15,
         alignItems: 'center',
         shadowColor: '#B22222',
