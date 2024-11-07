@@ -1,43 +1,20 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
-import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, ImageBackground, StyleSheet } from "react-native";
-import { auth, db } from "../../utils/firebase";
-import { collection, doc, setDoc } from "firebase/firestore";
-import { router } from "expo-router";
+import { useState } from 'react';
+import { ImageBackground, TouchableOpacityBase } from 'react-native';
+import { View, Text,StyleSheet } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default function SignIn() {
-    const [email, setEmail] =useState("");
-    const [password, setPassword] =useState("");
- 
-    function handleSignIn() {
-        if(email!="" && password != "") {
-            signInWithEmailAndPassword(auth, email, password)
-            .then(async(userCredential) => {
-                const user = userCredential.user;
-                console.log("🚀 ~ .then ~ user:", user)
-                router.push('/(drawer)/(tabs)/');
-                alert("login done");
-                await AsyncStorage.setItem("info", JSON.stringify(user.uid))
-                await setDoc(doc(collection(db, "users"), user.uid), {
-                    email: email,
-                    uid: user.uid,
-                });
-                setEmail("")
-                setPassword("")
-            })
-            .catch((error) => {
-                console.log("🚀 ~ handleSignup ~ error:", error)
-                const errorCode = error.code;
-                const errorMessage = error.message;
-            });
+export default function Home() {
+    const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-        }else{
-            alert("Please fill all the fields")
-        }
-
-    }
-    return (
-        <ImageBackground
+  const handleSignIn = () => {
+    console.log('Email:', email);
+    console.log('Password:', password);
+  };
+  return (
+    <View className='p-4 w-full items-center'>
+      <Text className='text-2xl font-bold'>Donate blood</Text>
+      <ImageBackground
             source={{ uri: 'https://media1.giphy.com/media/B0WxCspNlzKIChtzGT/source.gif' }} // Replace with your signup background image URL
             style={styles.background}
             resizeMode="contain"
@@ -134,3 +111,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 });
+    </View>
+  );
+}
