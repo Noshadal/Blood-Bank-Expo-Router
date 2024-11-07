@@ -3,6 +3,7 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
 const WelcomeScreen = ({ navigation }) => {
+
   return (
     <View style={styles.container}>
       <Image 
@@ -14,7 +15,7 @@ const WelcomeScreen = ({ navigation }) => {
       
       <TouchableOpacity 
         style={styles.button}
-        onPress={() => router.push('/sign-up')} // Replace with your actual navigation target
+        onPress={() => router.push('/(drawer)/(tabs)/')} // Replace with your actual navigation target
       >
         <Text style={styles.buttonText}>Get Started</Text>
       </TouchableOpacity>

@@ -15,5 +15,5 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "nativewind-env.d.ts"
-  ]
+, "utils/firebase.js", "app/(drawer)/(tabs)/index.jsx", "app/(drawer)/(tabs)/index.jsx"  ]
 }

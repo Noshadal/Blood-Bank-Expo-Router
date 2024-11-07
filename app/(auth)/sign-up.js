@@ -1,17 +1,45 @@
 import React, { useState } from 'react';
 import { router } from 'expo-router';
-import { View, Text, TextInput, TouchableOpacity, ImageBackground, StyleSheet, Image } from 'react-native';
-
-export default function Signup ({navigation}){
+import { View, Text, TextInput, TouchableOpacity, ImageBackground, StyleSheet, Image, ActivityIndicator } from 'react-native';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "../../utils/firebase";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { collection, doc, setDoc } from "firebase/firestore"; 
+export default function Signup({ navigation }) {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [city, setCity] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
 
 
     const handleSignup = () => {
-        console.log("Signup pressed");
+        if (email != "" && password != "") {
+            setLoading(true);
+            createUserWithEmailAndPassword(auth, email, password)
+                .then(async(userCredential) => {
+                    const user = userCredential.user;
+                    console.log("🚀 ~ .then ~ user:", user)
+                    setLoading(false);
+                    alert("User Created Successfully");
+                    await AsyncStorage.setItem("info", JSON.stringify(user.uid))
+                    await setDoc(doc(collection(db, "users"), user.uid), {
+                        email: email,
+                        uid: user.uid,
+                    });
+                    router.push('/(drawer)/(tabs)/');
+                    setEmail("")
+                    setPassword("")
+                })
+                .catch((error) => {
+                    console.log("🚀 ~ handleSignup ~ error:", error)
+                    setLoading(false);
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                });
+
+        }
     };
 
 
@@ -55,7 +83,8 @@ export default function Signup ({navigation}){
                 />
 
                 <TouchableOpacity style={styles.signupButton} onPress={handleSignup}>
-                    <Text style={styles.signupText}>Sign Up</Text>
+                    {loading ? <ActivityIndicator size={50} /> : <Text style={styles.signupText}>Sign Up</Text>}
+
                     <Image source={{ uri: 'https://example.com/blood-drop-icon.png' }} style={styles.icon} />
                 </TouchableOpacity>
 
@@ -77,7 +106,7 @@ const styles = StyleSheet.create({
     container: {
         width: '100%',
         padding: 20,
-        gap:10,
+        gap: 10,
         backgroundColor: 'rgba(255, 255, 255, 0.9)',
         borderRadius: 15,
         alignItems: 'center',
@@ -86,7 +115,7 @@ const styles = StyleSheet.create({
         shadowRadius: 10,
     },
     title: {
-        width:"100%",
+        width: "100%",
         fontSize: 28,
         fontWeight: 'bold',
         color: '#B22222',
@@ -124,7 +153,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
     },
     loginText: {
-        paddingTop:20,
+        paddingTop: 20,
         color: '#B22222',
         fontSize: 16,
     },
