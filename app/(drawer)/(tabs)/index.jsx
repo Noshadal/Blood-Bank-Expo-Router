@@ -1,58 +1,59 @@
 import { useState } from 'react';
 import { ImageBackground, TouchableOpacityBase } from 'react-native';
-import { View, Text,StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function Home() {
     const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+    const [password, setPassword] = useState('');
 
-  const handleSignIn = () => {
-    console.log('Email:', email);
-    console.log('Password:', password);
-  };
-  return (
-    <View className='p-4 w-full items-center'>
-      <Text className='text-2xl font-bold'>Donate blood</Text>
-      <ImageBackground
-            source={{ uri: 'https://media1.giphy.com/media/B0WxCspNlzKIChtzGT/source.gif' }} // Replace with your signup background image URL
-            style={styles.background}
-            resizeMode="contain"
-        >
-            <View style={styles.container}>
-                <Text style={styles.heading}>Welcome Back!</Text>
-                <Text style={styles.subheading}>Sign in to continue</Text>
-                
-                <TextInput
-                    style={styles.input}
-                    placeholder="Email"
-                    placeholderTextColor="#B22222"
-                    keyboardType="email-address"
-                    onChangeText={setEmail}
-                    value={email}
-                />
-                
-                <TextInput
-                    style={styles.input}
-                    placeholder="Password"
-                    placeholderTextColor="#B22222"
-                    secureTextEntry
-                    onChangeText={setPassword}
-                    value={password}
-                />
+    const handleSignIn = () => {
+        console.log('Email:', email);
+        console.log('Password:', password);
+    };
+    return (
+        <View className='p-4 w-full items-center'>
+            <Text className='text-2xl font-bold'>Donate blood</Text>
+            <ImageBackground
+                source={{ uri: 'https://media1.giphy.com/media/B0WxCspNlzKIChtzGT/source.gif' }} // Replace with your signup background image URL
+                style={styles.background}
+                resizeMode="contain"
+            >
+                <View style={styles.container}>
+                    <Text style={styles.heading}>Welcome Back!</Text>
+                    <Text style={styles.subheading}>Sign in to continue</Text>
 
-                <TouchableOpacity style={styles.button} onPress={handleSignIn}>
-                    <Text style={styles.buttonText}>Sign In</Text>
-                </TouchableOpacity>
-                
-                <Text style={styles.footerText}>
-                    New here?
-                    <Text style={styles.linkText} onPress={() => {/* Navigate to sign up */}}>
-                        Create an account
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Email"
+                        placeholderTextColor="#B22222"
+                        keyboardType="email-address"
+                        onChangeText={setEmail}
+                        value={email}
+                    />
+
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Password"
+                        placeholderTextColor="#B22222"
+                        secureTextEntry
+                        onChangeText={setPassword}
+                        value={password}
+                    />
+
+                    <TouchableOpacity style={styles.button} onPress={handleSignIn}>
+                        <Text style={styles.buttonText}>Sign In</Text>
+                    </TouchableOpacity>
+
+                    <Text style={styles.footerText}>
+                        New here?
+                        <Text style={styles.linkText} onPress={() => {/* Navigate to sign up */ }}>
+                            Create an account
+                        </Text>
                     </Text>
-                </Text>
-            </View>
-        </ImageBackground>
+                </View>
+            </ImageBackground>
+        </View>
     );
 }
 
@@ -111,6 +112,3 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 });
-    </View>
-  );
-}
