@@ -1,114 +1,116 @@
-import { useState } from 'react';
-import { ImageBackground, TouchableOpacityBase } from 'react-native';
-import { View, Text, StyleSheet } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { db } from '~/utils/firebase';
+import React, { useEffect, useState } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, SafeAreaView } from 'react-native';
 
-export default function Home() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+export default function BloodDonorListScreen() {
 
-    const handleSignIn = () => {
-        console.log('Email:', email);
-        console.log('Password:', password);
-    };
-    return (
-        <View className='p-4 w-full items-center'>
-            <Text className='text-2xl font-bold'>Donate blood</Text>
-            <ImageBackground
-                source={{ uri: 'https://media1.giphy.com/media/B0WxCspNlzKIChtzGT/source.gif' }} // Replace with your signup background image URL
-                style={styles.background}
-                resizeMode="contain"
-            >
-                <View style={styles.container}>
-                    <Text style={styles.heading}>Welcome Back!</Text>
-                    <Text style={styles.subheading}>Sign in to continue</Text>
+    const [donors, setDonors] = useState([])
 
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Email"
-                        placeholderTextColor="#B22222"
-                        keyboardType="email-address"
-                        onChangeText={setEmail}
-                        value={email}
-                    />
+    useEffect(() => {
+        getDonors()
+    }, [])
 
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Password"
-                        placeholderTextColor="#B22222"
-                        secureTextEntry
-                        onChangeText={setPassword}
-                        value={password}
-                    />
+    const getDonors = () => {
+        getDocs(collection(db, "donors"))
+            .then((querySnapshot) => {
+                const donors = [];
+                querySnapshot.forEach((doc) => {
+                    donors.push(doc.data());
+                });
+                setDonors(donors);
+            })
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            })
+    }
 
-                    <TouchableOpacity style={styles.button} onPress={handleSignIn}>
-                        <Text style={styles.buttonText}>Sign In</Text>
-                    </TouchableOpacity>
-
-                    <Text style={styles.footerText}>
-                        New here?
-                        <Text style={styles.linkText} onPress={() => {/* Navigate to sign up */ }}>
-                            Create an account
-                        </Text>
-                    </Text>
-                </View>
-            </ImageBackground>
+    const renderDonorCard = ({ item }) => (
+        <View style={styles.card}>
+            <Text style={styles.name}>Donor Name:{item.name}</Text>
+            <Text style={styles.bloodGroup}>Blood Group: {item.bloodGroup}</Text>
+            <Text style={styles.age}>Age: {item.age}</Text>
+            <Text style={styles.lastDonation}>Last Donation: {item.lastDonation}</Text>
+            <TouchableOpacity style={styles.contactButton}>
+                <Text style={styles.contactButtonText}>Contact</Text>
+            </TouchableOpacity>
         </View>
+    );
+
+    return (
+        <SafeAreaView style={styles.container}>
+            <Text style={styles.header}>Blood Donors</Text>
+            <FlatList
+                data={donors}
+                renderItem={renderDonorCard}
+                keyExtractor={(item) => item.id}
+                contentContainerStyle={styles.listContent}
+            />
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
-    background: {
-        flex: 1,
-        justifyContent: 'center',
-    },
     container: {
-        paddingHorizontal: 30,
-        alignItems: 'center',
-        paddingVertical: 20,
-        borderRadius: 15,
-        marginHorizontal: 20,
+        flex: 1,
+        backgroundColor: '#FFF5F5',
+        padding: 16,
     },
-    heading: {
-        fontSize: 32,
-        color: '#B22222',
+    header: {
+        fontSize: 28,
         fontWeight: 'bold',
-        marginBottom: 10,
-    },
-    subheading: {
-        fontSize: 16,
-        color: '#B22222',
-        marginBottom: 20,
-    },
-    input: {
-        width: '100%',
-        backgroundColor: '#FFFFFF',
-        padding: 15,
-        borderColor: '#B22222',
-        borderWidth: 1,
-        borderRadius: 8,
-        marginBottom: 15,
-        color: '#B22222',
-    },
-    button: {
-        backgroundColor: '#B22222',
-        paddingVertical: 12,
-        paddingHorizontal: 50,
-        borderRadius: 25,
-        alignItems: 'center',
+        color: '#D32F2F',
+        textAlign: 'center',
         marginVertical: 20,
     },
-    buttonText: {
+    listContent: {
+        paddingBottom: 16,
+    },
+    card: {
+        backgroundColor: '#FFFFFF',
+        borderRadius: 10,
+        padding: 16,
+        marginVertical: 8,
+        marginHorizontal: 16,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 5,
+        elevation: 5,
+        borderLeftWidth: 5,
+        borderLeftColor: '#D32F2F',
+    },
+    name: {
+        fontSize: 20,
+        color: 'black',
+        marginBottom: 5,
+        fontWeight: 'bold',
+    },
+    bloodGroup: {
+        fontSize: 16,
+        color: '#757575',
+        marginTop: 5,
+    },
+    age: {
+        fontSize: 16,
+        color: '#757575',
+        marginTop: 5,
+    },
+    lastDonation: {
+        fontSize: 16,
+        color: '#757575',
+        marginTop: 5,
+    },
+    contactButton: {
+        marginTop: 10,
+        backgroundColor: '#E53935',
+        paddingVertical: 8,
+        borderRadius: 8,
+    },
+    contactButtonText: {
         color: '#FFFFFF',
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold',
-    },
-    footerText: {
-        fontSize: 14,
-        color: '#B22222',
-    },
-    linkText: {
-        color: '#8B0000',
-        fontWeight: 'bold',
+        textAlign: 'center',
     },
 });

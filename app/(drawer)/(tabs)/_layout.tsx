@@ -14,15 +14,24 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Home',
-
+          headerShown:false,
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
       <Tabs.Screen
-        name="two"
+        name="Donate"
         options={{
+          headerShown:false,
+          title: 'Donate',
+          tabBarIcon: ({ color }) => <TabBarIcon name="dropbox" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="Profile"
+        options={{
+          headerShown:false,
           title: 'Profile',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
         }}
       />
     </Tabs>

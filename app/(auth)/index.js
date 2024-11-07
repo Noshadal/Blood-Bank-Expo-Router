@@ -1,8 +1,14 @@
 import { router } from 'expo-router';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
-const WelcomeScreen = ({ navigation }) => {
+const WelcomeScreen = () => {
+
+  useEffect(()=>{
+    setTimeout(() => {
+      router.push('/(drawer)/(tabs)/')
+    }, 1000);
+  }, [])
 
   return (
     <View style={styles.container} >

@@ -15,10 +15,11 @@ const Loading = () => {
     const user = await AsyncStorage.getItem('user');
     if (user !== null) {
       console.log('if');
-
+      
       setUser(JSON.parse(user));
       router.push('(Drawer)');
     } else {
+      console.log('else');
       router.push('(auth)');
     }
   };
