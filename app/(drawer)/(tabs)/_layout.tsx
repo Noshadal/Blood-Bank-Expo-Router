@@ -22,14 +22,21 @@ export default function TabLayout() {
           shadowRadius: 10,
           elevation: 10,
         },
-      }}
-    >
+      }}>
       {/* Left Tab for Donate */}
       <Tabs.Screen
         name="index"
         options={{
           title: 'Home',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+        }}
+      />
+
+      <Tabs.Screen
+        name="Msg"
+        options={{
+          title: 'Msg',
+          tabBarIcon: ({ color }) => <TabBarIcon name="send" color={color} />,
         }}
       />
 
@@ -43,6 +50,14 @@ export default function TabLayout() {
               <TabBarIcon name="plus" color="white" />
             </View>
           ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="Chatbot"
+        options={{
+          title: 'Chatbot',
+          tabBarIcon: ({ color }) => <TabBarIcon name="inbox" color={color} />,
         }}
       />
 
