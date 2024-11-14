@@ -1,10 +1,17 @@
 import { router } from 'expo-router';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
-const WelcomeScreen = ({ navigation }) => {
+const WelcomeScreen = () => {
+
+  useEffect(()=>{
+    setTimeout(() => {
+      router.push('/(drawer)/(tabs)/')
+    }, 1000);
+  }, [])
+
   return (
-    <View style={styles.container}>
+    <View style={styles.container} >
       <Image 
         style={styles.logo}
         source={{ uri: 'https://media.istockphoto.com/id/1081786788/vector/drop.jpg?s=612x612&w=0&k=20&c=4Xqh6-K94vU9uAnYBNTu8JWb2CoWi37JB4gKfvdSIb0=' }}
@@ -14,7 +21,7 @@ const WelcomeScreen = ({ navigation }) => {
       
       <TouchableOpacity 
         style={styles.button}
-        onPress={() => router.push('/sign-up')} // Replace with your actual navigation target
+        onPress={() => router.push('/(drawer)/(tabs)/')} // Replace with your actual navigation target
       >
         <Text style={styles.buttonText}>Get Started</Text>
       </TouchableOpacity>

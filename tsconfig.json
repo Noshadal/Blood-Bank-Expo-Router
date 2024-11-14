@@ -15,5 +15,9 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "nativewind-env.d.ts"
+<<<<<<< HEAD
 , "utils/firebase.config.js"  ]
+=======
+, "utils/firebase.js", "app/(drawer)/(tabs)/index.jsx", "app/(drawer)/(tabs)/index.jsx"  ]
+>>>>>>> 4b3fa6ffe269b206c66326a13fc8cb5cb1548045
 }

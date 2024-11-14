@@ -28,6 +28,22 @@ const Loading = () => {
     return unsubscribe;
   }, []);
 
+<<<<<<< HEAD
+=======
+  const checkUser = async () => {
+    const user = await AsyncStorage.getItem('user');
+    if (user !== null) {
+      console.log('if');
+      
+      setUser(JSON.parse(user));
+      router.push('(Drawer)');
+    } else {
+      console.log('else');
+      router.push('(auth)');
+    }
+  };
+
+>>>>>>> 4b3fa6ffe269b206c66326a13fc8cb5cb1548045
   return (
     <View style={styles.container}>
       <ActivityIndicator />

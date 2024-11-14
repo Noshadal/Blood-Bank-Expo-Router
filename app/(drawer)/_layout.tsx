@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+=======
+import { MaterialIcons } from '@expo/vector-icons';
+>>>>>>> 4b3fa6ffe269b206c66326a13fc8cb5cb1548045
 import { Drawer } from 'expo-router/drawer';
 
 const DrawerLayout = () => (
@@ -6,6 +10,7 @@ const DrawerLayout = () => (
     <Drawer.Screen 
       name="index"
       options={{
+<<<<<<< HEAD
         headerTitle: 'Home',
         headerStyle: {
           backgroundColor: '#cf191f', // Set the entire header background to red
@@ -51,6 +56,14 @@ const DrawerLayout = () => (
         drawerIcon: ({ size, color }) => (
           <MaterialIcons name="border-bottom" size={size} color={color} />
         ),
+=======
+        headerShown: false,
+        headerTitle: 'Dashboard',
+        drawerLabel: 'Dashboard',
+        drawerIcon: ({ size, color }) => (
+          <MaterialIcons name="home" size={size} color={color} />
+        ),
+>>>>>>> 4b3fa6ffe269b206c66326a13fc8cb5cb1548045
       }}
     />
     <Drawer.Screen
