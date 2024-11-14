@@ -1,27 +1,32 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { View, StyleSheet, ActivityIndicator, Text } from 'react-native';
-import { useAuth } from '../../hooks/useAuth';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { initializeApp, getApps } from 'firebase/app';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { router } from 'expo-router';
+import firebaseConfig from '../../utils/firebase.config';
+
+let app;
+if (!getApps().length) {
+  app = initializeApp(firebaseConfig);
+} else {
+  app = getApps()[0];
+}
+
+const auth = getAuth(app);
 
 const Loading = () => {
-  const { setUser } = useAuth();
-
   useEffect(() => {
-    checkUser();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log("User is logged in:", user);
+        router.push('(home)'); // Adjusted path for home
+      } else {
+        console.log("No user found.");
+        router.push('/(auth)'); // Adjusted path for auth screen
+      }
+    });
+    return unsubscribe;
   }, []);
-
-  const checkUser = async () => {
-    const user = await AsyncStorage.getItem('user');
-    if (user !== null) {
-      console.log('if');
-
-      setUser(JSON.parse(user));
-      router.push('(Drawer)');
-    } else {
-      router.push('(auth)');
-    }
-  };
 
   return (
     <View style={styles.container}>
